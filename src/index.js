@@ -27,7 +27,7 @@ SlashCommandsHandler(client);
 fs.readFile("./chachesystem/temp.json", (err, data) => {
   if (!err || data) {
     const file = JSON.parse(data.toString());
-    const length = fs.readdirSync("./commands/").length;
+    const length = fs.readdirSync("./commands/","./commands/fun").length;
     file.TEMP.editDeploy = length;
     fs.writeFile("./chachesystem/temp.json", JSON.stringify(file), (err) => {
       if (err) console.log(err);
