@@ -1,6 +1,6 @@
 const { EmbedBuilder, Permissions, Interaction, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } = require("discord.js");
 const fs = require("node:fs");
-const config = require("../../config/config.json");
+const config = require("../config/config.json");
 const pollpath = "src/store/poll.json";
 
 module.exports = {

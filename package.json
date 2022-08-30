@@ -13,7 +13,7 @@
         "discord.js": "^14.0.3"
     },
     "scripts": {
-        "start": "nodemon ."
+        "start": "npx tsc && nodemon ."
     },
     "repository": {
         "type": "git",
