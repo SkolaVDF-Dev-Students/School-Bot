@@ -23,7 +23,7 @@ module.exports = {
             let randomresponse = [];
             for (let i = 0; i < interaction.options.getInteger("počet"); i++) {
                 const fetch = await axios.get("https://api.api-ninjas.com/v1/randomword",{
-                    Headers: {"X-Api-Key":"uEvz3m9YkP9MnP9EaMGJ2A==mzX2yJ1fhEtu1jYJ"} //move to conf
+                    headers: {"X-Api-Key":"uEvz3m9YkP9MnP9EaMGJ2A==mzX2yJ1fhEtu1jYJ"} //move to conf
                 })
                 await randomresponse.push(fetch.data.word)
             };

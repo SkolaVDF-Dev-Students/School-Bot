@@ -1,7 +1,7 @@
-const { Client, Collection, EmbedBuilder } = require("discord.js");
-const path = require('node:path');
-const fs = require('node:fs');
-module.exports = async (client) => {
+import { Client, Collection, EmbedBuilder } from "discord.js";
+import path from "node:path";
+import fs from "node:fs";
+module.exports = async (client:any) => {
     client.commands = new Collection();
     const commandsPath = path.join(__dirname, '../commands/');
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -11,7 +11,7 @@ module.exports = async (client) => {
         console.log("[","\x1b[43m","C","\x1b[0m","]","\x1b[4m", file, "\x1b[0m" + " Loaded!")
         client.commands.set(command.data.name, command);
     }
-    client.on('interactionCreate', async interaction => {
+    client.on('interactionCreate', async (interaction: { isChatInputCommand: () => any; commandName: any; reply: (arg0: { embeds: EmbedBuilder[]; ephemeral: boolean; }) => any; }) => {
         if (!interaction.isChatInputCommand()) return;
     
         const command = client.commands.get(interaction.commandName);

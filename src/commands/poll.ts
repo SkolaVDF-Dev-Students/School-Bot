@@ -1,15 +1,14 @@
-const { EmbedBuilder, Permissions, Interaction, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } = require("discord.js");
-const fs = require("node:fs");
-const config = require("../config/config.json");
-const pollpath = "src/store/poll.json";
-
+import { EmbedBuilder, Permissions, Interaction, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from "discord.js";
+import fs from "node:fs";
+import config from "../config/config.json";
+import pollpath from "../store/poll.json";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("poll")
         .setDescription("Allows you to vote about something")
         .addStringOption((option) => option.setName("text").setDescription("Write your idea").setRequired(true))
         .addAttachmentOption((option) => option.setName("image").setDescription("Pïn some image")),
-    async execute(interaction) {
+    async execute(interaction:any) {
         var poll = new EmbedBuilder()
             .setTitle("» Poll «")
             .setColor("#16e1ab")
@@ -25,17 +24,17 @@ module.exports = {
         if (interaction.options.getAttachment("image")) {
             let img = await interaction.options.getAttachment("image").url;
             await poll.setImage(img);
-            await interaction.reply({ embeds: [poll], components: [row], fetchReply: true }).then(async (message) => {
+            await interaction.reply({ embeds: [poll], components: [row], fetchReply: true }).then(async (message:any) => {
                 saveToJSON(message.channelId);
             });
         } else {
-            await interaction.reply({ embeds: [poll], components: [row], fetchReply: true }).then(async (message) => {
+            await interaction.reply({ embeds: [poll], components: [row], fetchReply: true }).then(async (message:any) => {
                 saveToJSON(message.id);
             });
         }
 
-        function saveToJSON(id) {
-            fs.readFile(pollpath, (err, res) => {
+        function saveToJSON(id:any) {
+            fs.readFile(pollpath, (err:any, res:any) => {
                 if (err) return console.error(err);
                 let data = JSON.parse(res);
                 const messageObject = {
