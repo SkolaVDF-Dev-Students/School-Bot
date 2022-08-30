@@ -1,10 +1,10 @@
-exports.run = async (client) => {
-    const { Collection } = require("discord.js");
-    const path = require('node:path');
-    const fs = require('node:fs');
-    const { REST } = require('@discordjs/rest');
-    const config = require("../../config/config.json");
-    const { Routes } = require('discord-api-types/v9');
+import { Collection } from "discord.js";
+import path from "node:path";
+import fs from "node:fs";
+import { REST } from "@discordjs/rest";
+import config from "../config/config.json";
+import { Routes } from "discord-api-types/v9";
+exports.run = async (client:any) => {
     const commands = [];
     client.commands = new Collection();
     const commandsPath = path.join(__dirname, '../commands/');
