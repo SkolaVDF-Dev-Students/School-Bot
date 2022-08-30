@@ -1,6 +1,6 @@
 {
     "BOT": {
-        "token": "ODI0MzQ1NDQ1MzA0MTA3MDY4.GxQnJv.jmkx8woEDExuw1IyX3It-PsE0hxbOWa6mMTpfc",
+        "token": "ODI0MzQ1NDQ1MzA0MTA3MDY4.G6-6ca.UE23QNrd0A8Mo1n1KyxGTk2goGHKUSZO5BNgSU",
         "clientId": "824345445304107068",
         "guildId": "850674292949778432"
     },
@@ -9,7 +9,8 @@
     },
     "STATUS": {
         "status-interval": 30000,
-        "status-slots": ["BotBase", "By DEPSTRCZ#9987", "Prefix: /"]
+        "status-slots": ["BotBase", "By DEPSTRCZ#9987", "Prefix: /"],
+        "status-type": "Playing"
     },
     "EMBEDS": {
         "footer-text": "© BotBase",
