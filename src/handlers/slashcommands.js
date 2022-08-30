@@ -3,7 +3,6 @@ const path = require('node:path');
 const fs = require('node:fs');
 module.exports = async (client) => {
     client.commands = new Collection();
-    function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms));}
     const commandsPath = path.join(__dirname, '../commands/');
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
