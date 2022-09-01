@@ -1,4 +1,4 @@
 node_modules/
-src/config/bot/bot.json
+src/configs/bot/bot.json
 dist/
 dist/*
