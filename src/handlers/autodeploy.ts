@@ -1,10 +1,10 @@
-exports.run = async (client) => {
-    const { Collection } = require("discord.js");
-    const path = require('node:path');
-    const fs = require('node:fs');
-    const { REST } = require('@discordjs/rest');
-    const config = require("../config/config.json");
-    const { Routes } = require('discord-api-types/v9');
+import { Collection } from "discord.js";
+import path from "node:path";
+import fs from "node:fs";
+import { REST } from "@discordjs/rest";
+import BotData from "../configs/bot/bot.json"
+import { Routes } from "discord-api-types/v9";
+exports.run = async (client:any) => {
     const commands = [];
     client.commands = new Collection();
     const commandsPath = path.join(__dirname, '../commands/');
@@ -22,9 +22,9 @@ exports.run = async (client) => {
 	    commands.push(command.data.toJSON());
     }
 
-    const rest = new REST({ version: '9' }).setToken(config.BOT.token);
+    const rest = new REST({ version: '9' }).setToken(BotData.token);
 
-    rest.put(Routes.applicationGuildCommands(config.BOT.clientId, config.BOT.guildId), { body: commands })
+    rest.put(Routes.applicationGuildCommands(BotData.clientId, BotData.guildId), { body: commands })
 	    .then(() => {
         console.log("[","\x1b[43m","Commands","\x1b[0m","]","\x1b[0m"," Changes were detected! Applaying them now!")
 		})
