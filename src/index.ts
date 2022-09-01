@@ -1,5 +1,5 @@
 // Imports
-import config from "./config/config.json";
+import BotConf from "./configs/bot/bot.json";
 import fs from "node:fs";
 import TEMP from "./chachesystem/temp.json";
 import { Client, GatewayIntentBits } from "discord.js";
@@ -41,4 +41,4 @@ if (TEMP.TEMP.editDeploy !== length) {
 } else {
     console.log("[", "\x1b[43m", "Commands", "\x1b[0m", "]", "\x1b[0m", " No edit to commands were made... Skipping");
 }
-client.login(config.BOT.token);
+client.login(BotConf.token);

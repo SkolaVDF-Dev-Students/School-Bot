@@ -1,7 +1,9 @@
 import { EmbedBuilder, Permissions, Interaction, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from "discord.js";
 import fs from "node:fs";
-import config from "../config/config.json";
-import pollpath from "../store/poll.json";
+import path from "node:path";
+import EmbedData from "../configs/bot/embeds.json";
+const pollpath = path.join(__dirname, "../store/poll.json");
+//import pollpath from "../store/poll.json";
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("poll")
@@ -13,7 +15,7 @@ module.exports = {
             .setTitle("» Poll «")
             .setColor("#16e1ab")
             .setDescription(interaction.options.getString("text") + `\n\n> **User: <@${interaction.user.id}>**`)
-            .setFooter({ text: config.EMBEDS["footer-text"], iconURL: config.EMBEDS["footer-icon"] })
+            .setFooter({ text: EmbedData.footer.text, iconURL: EmbedData.footer.icon_url })
             .addFields({ name: "👍 **Up Votes**", value: "**0**", inline: true }, { name: "👎 **Down Votes**", value: "**0**", inline: true })
             .addFields({ name: "Poll ends in:", value: `<t:${Math.round(new Date().setDate(new Date().getDate() + 5) / 1000)}:R>` })
             .setThumbnail(interaction.user.avatarURL({ size: 128 }));

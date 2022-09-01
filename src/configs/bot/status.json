@@ -1,0 +1,5 @@
+{
+    "type": "PLAYING",
+    "interval": 30000,
+    "slots": ["BotBase", "By DEPSTRCZ#9987", "Prefix: /"]
+}

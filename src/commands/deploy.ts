@@ -1,5 +1,5 @@
 import { EmbedBuilder, Collection, SlashCommandBuilder } from "discord.js";
-import config from "../config/config.json";
+import { token } from "../configs/bot/bot.json"
 import path from "node:path";
 import fs from "node:fs";
 import { REST } from "@discordjs/rest";
@@ -21,7 +21,7 @@ module.exports = {
             let commandFile = require("../handlers/autodeploy");
             commandFile.run(interaction.client);
         })
-        .then(() => interaction.client.login(config.BOT.token))
+        .then(() => interaction.client.login(token))
         .then(() => {
             console.log("DEBUG: Client Online!")
         })
