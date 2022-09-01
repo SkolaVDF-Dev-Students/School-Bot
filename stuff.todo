@@ -6,3 +6,15 @@
 
 ------ 
 ☐ implement dalle2 / deep ai // maybe
+
+---
+
+Food Command:
+    ☐ get data from strava
+    ☐ parse data
+    ☐ send embed
+    ✔ command options (today, tomorrow, this month) @done(22-09-01 20:27)
+    ☐ permanent message (admin only)
+    ☐ add /food datum 18.5
+
+
