@@ -1,9 +1,12 @@
 import { Embed, Client, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import axios from "axios";
+import { toJson as xml2json } from "xml2json";
 
 async function getStravaData(format: string): Promise<string> {
-    let data = await axios.get("https://www.strava.cz/strava5/Jidelnicky?zarizeni=6218");
-    return data.data;
+    let data = await axios.get("https://www.strava.cz/strava5/Jidelnicky/XML?zarizeni=6218");
+    let parsedToJson: any = xml2json(data.data);
+    let parsed: any = JSON.parse(parsedToJson);
+    return parsed.jidelnicky.den[0].jidlo[0].nazev;
 }
 
 module.exports = {
