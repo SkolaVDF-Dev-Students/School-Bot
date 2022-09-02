@@ -13,13 +13,13 @@ Food Command:
     ✔ get data from strava @done(22-09-02 09:45)
     ✔ parse data @done(22-09-02 09:45)
     ✔ today @done(22-09-02 11:30)
-    ☐ today embed
-    ☐ tomorrow
-    ☐ date
+    ✔ today embed @done(22-09-02 23:25)
+    ✔ tomorrow @done(22-09-02 23:25)
+    ✔ date @done(22-09-02 23:25)
     ☐ permanent
-    ☐ send embed
+    ✔ send embed @done(22-09-02 23:25)
     ✔ command options (today, tomorrow, this month) @done(22-09-01 20:27)
     ☐ permanent message (admin only)
-    ☐ add /food datum 18.5
-
+    ✔ add /food datum 18.5 @done(22-09-02 22:45)
+    ☐ button for show "alergeny"
 
