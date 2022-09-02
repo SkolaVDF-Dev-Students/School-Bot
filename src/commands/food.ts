@@ -33,12 +33,17 @@ function getDate(today: boolean, date: string) {
     if (dd < 10) {
         dd2 = dd.toString();
         dd2 = `0${dd2}`;
+    } else {
+        dd2 = dd.toString();
     }
 
     if (mm < 10) {
         mm2 = mm.toString();
         mm2 = `0${mm2}`;
+    } else {
+        mm2 = mm.toString();
     }
+
     return `${dd2}-${mm2}-${yyyy}`;
 }
 
@@ -53,7 +58,6 @@ function extractDataFromStrava(parsed: any, switcher: boolean, date: string = ""
 
     let foods: { name: string; value: string }[] = [];
     let secondCheck = 0;
-
     days.forEach((day: any) => {
         if (day.datum == dateChecker) {
             day.jidlo.forEach((food: any) => {
@@ -107,6 +111,8 @@ module.exports = {
         )
         .addSubcommand((subcommand) => subcommand.setName("permanent").setDescription("Pošle zprávu s dnešním jídelníčkem který se každých 24h aktualizuje.")),
     async execute(interaction: any) {
+        await interaction.reply("Hledám data, vydrž moment");
+
         let date: string = "";
         if (interaction.options._hoistedOptions.length > 0) {
             let options = interaction.options._hoistedOptions;
@@ -122,11 +128,15 @@ module.exports = {
             if (day < 10) {
                 strDay = day.toString();
                 strDay = `0${strDay}`;
+            } else {
+                strDay = day.toString();
             }
 
             if (month < 10) {
                 strMonth = month.toString();
                 strMonth = `0${strMonth}`;
+            } else {
+                strMonth = month.toString();
             }
 
             date = `${year}-${strMonth}-${strDay}`;
@@ -150,6 +160,6 @@ module.exports = {
             },
         };
 
-        return interaction.reply({ embeds: [embed] });
+        return interaction.editReply({ content: "", embeds: [embed] });
     },
 };
