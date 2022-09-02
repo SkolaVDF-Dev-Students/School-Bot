@@ -10,8 +10,8 @@
 ---
 
 Food Command:
-    ☐ get data from strava
-    ☐ parse data
+    ✔ get data from strava @done(22-09-02 09:45)
+    ✔ parse data @done(22-09-02 09:45)
     ☐ send embed
     ✔ command options (today, tomorrow, this month) @done(22-09-01 20:27)
     ☐ permanent message (admin only)
