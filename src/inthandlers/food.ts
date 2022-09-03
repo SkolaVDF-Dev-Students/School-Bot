@@ -1,6 +1,8 @@
 import axios from "axios";
 import { toJson as xml2json } from "xml2json";
-import cron  from "node-cron";
+import cron from "node-cron";
+import EmbedData from "../configs/bot/embeds.json";
+import foodConf from "../configs/food.json";
 
 export function getDate(today: boolean, date: string) {
     let theDate = new Date();
@@ -104,7 +106,37 @@ export async function getStravaData(format: string, date: string, alergeny: bool
 }
 
 module.exports = async (client: any) => {
-    setInterval(() => {});
+    let channel = client.channels.cache.get(foodConf.permanentChannelFood);
+
+    let data: any = await getStravaData("today", "", false);
+
+    let color: number = 0x000000;
+    if (data.length === 1 && data[0].name == "Nastala chyba") {
+        color = 0x7d2828;
+    } else {
+        color = 0x4e7d28;
+    }
+
+    let embed = {
+        color: color,
+        title: "🍽️ Jídelní lístek",
+        fields: data,
+        footer: {
+            text: EmbedData.footer.text,
+            iconURL: EmbedData.footer.icon_url,
+        },
+    };
+
+    let todayDate = new Date();
+    let checkDate = todayDate.getDay() === 0 || todayDate.getDay() === 6;
+
+    let contentMsg = checkDate ? "" : `||<@&${foodConf.permanentRoleFood}>||`;
+    channel.send({ content: contentMsg, embeds: [embed] }).then((msg: any) => {
+        cron.schedule("0 4 * * *", () => {
+            msg.delete();
+            channel.send({ content: contentMsg, embeds: [embed] });
+        });
+    });
 
     client.on("interactionCreate", async (interaction: any) => {
         if (!interaction.isButton()) return;
