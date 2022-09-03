@@ -131,12 +131,14 @@ module.exports = async (client: any) => {
     let checkDate = todayDate.getDay() === 0 || todayDate.getDay() === 6;
 
     let contentMsg = checkDate ? "" : `||<@&${foodConf.permanentRoleFood}>||`;
-    channel.send({ content: contentMsg, embeds: [embed] }).then((msg: any) => {
-        cron.schedule("0 4 * * *", () => {
-            msg.delete();
-            channel.send({ content: contentMsg, embeds: [embed] });
+    if (todayDate.getHours() === 4 && todayDate.getMinutes() === 0) {
+        channel.send({ content: contentMsg, embeds: [embed] }).then((msg: any) => {
+            cron.schedule("0 4 * * *", () => {
+                msg.delete();
+                channel.send({ content: contentMsg, embeds: [embed] });
+            });
         });
-    });
+    }
 
     client.on("interactionCreate", async (interaction: any) => {
         if (!interaction.isButton()) return;
