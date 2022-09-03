@@ -6,3 +6,20 @@
 
 ------ 
 ☐ implement dalle2 / deep ai // maybe
+
+---
+
+Food Command:
+    ✔ get data from strava @done(22-09-02 09:45)
+    ✔ parse data @done(22-09-02 09:45)
+    ✔ today @done(22-09-02 11:30)
+    ✔ today embed @done(22-09-02 23:25)
+    ✔ tomorrow @done(22-09-02 23:25)
+    ✔ date @done(22-09-02 23:25)
+    ✔ permanent @done(22-09-03 19:54)
+    ✔ send embed @done(22-09-02 23:25)
+    ✔ command options (today, tomorrow, this month) @done(22-09-01 20:27)
+    ✔ permanent message (admin only) @done(22-09-03 19:54)
+    ✔ add /food datum 18.5 @done(22-09-02 22:45)
+    ✔ button for show "alergeny" @done(22-09-03 18:59)
+

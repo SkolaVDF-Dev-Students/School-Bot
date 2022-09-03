@@ -45,13 +45,7 @@ module.exports = async (client:any) => {
     }, 10000);
     client.on(
         "interactionCreate",
-        async (interaction: {
-            message: { id: any; embeds: any[] };
-            user: { id: any };
-            reply: (arg0: { embeds: any[]; ephemeral: boolean }) => void;
-            update: (arg0: { embeds: any[] }) => Promise<any>;
-            customId: string;
-        }) => {
+        async (interaction: any) => {
             //Vote function
             function poll_vote(action: string) {
                 fs.readFile(pollpath, async (err, res: any) => {
