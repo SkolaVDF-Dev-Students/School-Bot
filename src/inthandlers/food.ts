@@ -1,7 +1,6 @@
-import { Embed, Client, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, SlashCommandBuilder } from "discord.js";
 import axios from "axios";
 import { toJson as xml2json } from "xml2json";
-import EmbedData from "../configs/bot/embeds.json";
+import cron  from "node-cron";
 
 export function getDate(today: boolean, date: string) {
     let theDate = new Date();
@@ -104,77 +103,20 @@ export async function getStravaData(format: string, date: string, alergeny: bool
     }
 }
 
-module.exports = {
-    data: new SlashCommandBuilder()
-        .setName("food")
-        .setDescription("Výběr možností")
-        .addSubcommand((subcommand) => subcommand.setName("today").setDescription("Pošle dnešní jídelníček."))
-        .addSubcommand((subcommand) => subcommand.setName("tomorrow").setDescription("Pošle zítřejší jídelníček."))
-        .addSubcommand((subcommand) =>
-            subcommand
-                .setName("date")
-                .setDescription("Pošle jídelníček na napsané datum.")
-                .addIntegerOption((option) => option.setName("den").setDescription("Zadej den (např. 2, 5, 9, ...)").setRequired(true))
-                .addIntegerOption((option) => option.setName("měsíc").setDescription("Zadej měsíc (např. 1, 6, 9, ...)").setRequired(true))
-        )
-        .addSubcommand((subcommand) => subcommand.setName("permanent").setDescription("Pošle zprávu s dnešním jídelníčkem který se každých 24h aktualizuje.")),
-    async execute(interaction: any) {
-        await interaction.deferReply();
+module.exports = async (client: any) => {
+    setInterval(() => {});
 
-        let date: string = "";
-        if (interaction.options._hoistedOptions.length > 0) {
-            let options = interaction.options._hoistedOptions;
-
-            let year = new Date().getFullYear().toString();
-
-            let day = options[0].value;
-            let month = options[1].value;
-
-            let strDay = "";
-            let strMonth = "";
-
-            if (day < 10) {
-                strDay = day.toString();
-                strDay = `0${strDay}`;
-            } else {
-                strDay = day.toString();
-            }
-
-            if (month < 10) {
-                strMonth = month.toString();
-                strMonth = `0${strMonth}`;
-            } else {
-                strMonth = month.toString();
-            }
-
-            date = `${year}-${strMonth}-${strDay}`;
+    client.on("interactionCreate", async (interaction: any) => {
+        if (!interaction.isButton()) return;
+        if (interaction.customId === "500") {
+            let commandName = interaction.message.interaction.commandName;
+            commandName = commandName.split("food ");
+            commandName = commandName[1];
+            let embed: any = interaction.message.embeds[0].data;
+            embed.fields = await getStravaData(commandName, interaction.message.embeds[0].data.timestamp, true);
+            embed.title = "🍽️ Alergeny";
+            embed.color = 0xd18700;
+            return interaction.reply({ content: "", embeds: [embed], ephemeral: true });
         }
-        let data: any = await getStravaData(interaction.options._subcommand, date, false);
-
-        let color: number = 0x000000;
-        if (data.length === 1 && data[0].name == "Nastala chyba") {
-            color = 0x7d2828;
-        } else {
-            color = 0x4e7d28;
-        }
-
-        let embed = {
-            color: color,
-            title: "🍽️ Jídelní lístek",
-            fields: data,
-            timestamp: date,
-            footer: {
-                text: EmbedData.footer.text,
-                iconURL: EmbedData.footer.icon_url,
-            },
-        };
-
-        const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("500").setLabel("Zobrazit Alergeny").setEmoji("📜").setStyle(ButtonStyle.Secondary));
-
-        if (data[0].name == "Nastala chyba" || data[0].name == "Trefil jsem se na víkend") {
-            return interaction.editReply({ content: "", embeds: [embed] });
-        }
-
-        return interaction.editReply({ content: "", embeds: [embed], components: [row] });
-    },
+    });
 };

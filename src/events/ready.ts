@@ -1,9 +1,9 @@
-import BotData from "../configs/bot/bot.json"
-import StatusConf from "../configs/bot/status.json" 
+import BotData from "../configs/bot/bot.json";
+import StatusConf from "../configs/bot/status.json";
 module.exports = {
     name: "ready",
     once: false,
-    async execute(client:any) {
+    async execute(client: any) {
         let guild = await client.guilds.fetch(BotData.guildId);
         await guild.members.fetch();
         console.log("\x1b[34m", "╔═════════════╗", "\x1b[0m");
@@ -16,13 +16,15 @@ module.exports = {
 
         //KeepAlive
         const PollHandler = require("../inthandlers/poll");
+        const FoodHandler = require("../inthandlers/food");
         PollHandler(client);
+        FoodHandler(client);
 
         //ready
         client.user.setStatus("away");
         var i = 0;
         setInterval(() => {
-            client.user.setPresence({ activities: [{ name: "" }], status: StatusConf.slots});
+            client.user.setPresence({ activities: [{ name: "" }], status: StatusConf.slots });
             client.user.setActivity(StatusConf.slots[i], { type: StatusConf.type });
             i++;
             i = i % StatusConf.slots.length;
