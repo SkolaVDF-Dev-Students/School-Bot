@@ -43,19 +43,10 @@ module.exports = {
                         .setDescription("Umožnujě specifikovat zda mají čísla být zaporná nebo kladná")
                         .addChoices(
                             { name: "Ano", value: "" },
-                            { nme: "Ne", value: "" },
+                            { name: "Ne", value: "" },
                             { name: "Nahodně", value: ""}
                         )
-                ))
-                .addStringOption(option =>
-                    option.setName("délka")
-                        .setDescription("Vybere v jakém jazyce májí být náhodné slova")
-                        .addChoices(
-                            { name: "9 - Max", value: "1" },
-                            { name: "99 - Max", value: "2" },
-                            { name: "999 - Max", value: "3" },
-                            { name: "9999 - Max", value: "4" },
-                        )),
+                )),
 	async execute(interaction:any) {
         if (interaction.options.getSubcommand("slovo")) {
             if (interaction.options.getInteger("počet") > 20) return interaction.reply({content: "EMBED: Vybral jsi až moc velké číslo Max 20"})
@@ -75,8 +66,16 @@ module.exports = {
             if (interaction.options.getInteger("počet") > 30) return interaction.reply({content: "EMBED: Vybral jsi až moc velké číslo Max 30"})
             await interaction.deferReply();
             let randomresponse = "";
-            //Need function here
-            for  (let i = 0; i || interaction.options.getString("od") < interaction.getString)
+            function getRandomInt(from: number = 0, to: number = 99, negative: boolean) {
+                from = Math.ceil(from);
+                to = Math.floor(to);
+                Math.floor(Math.random() * (to - from) + from);
+            }
+                  
+            
+            for  (let i = 0; i < interaction.getInteger("počet"); i++) {
+
+            }
         }
 	},
 };
