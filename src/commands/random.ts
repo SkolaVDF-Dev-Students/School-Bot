@@ -35,7 +35,7 @@ module.exports = {
                 .addIntegerOption(option => 
                     option.setName("od")
                     .setDescription("Umožňuje specifikovat od kterého čísla se mají náhodné čísla generovat"))
-                .addIntegerOption(option => 
+                .addNumberOption(option => 
                     option.setName("do")
                         .setDescription("Umožňuje specifikovat do kterého čísla se mají náhodné čísla generovat. Max 9999"))
                 .addStringOption(option => 
@@ -47,7 +47,7 @@ module.exports = {
                         )
                 )),
 	async execute(interaction:any) {
-        if (interaction.options.getSubcommand("slovo")) {
+        if (interaction.options.getSubcommand() === "slovo") {
             if (interaction.options.getInteger("počet") > 20) return interaction.reply({content: "EMBED: Vybral jsi až moc velké číslo Max 20"})
             await interaction.deferReply();
             let randomresponse = "";
@@ -61,24 +61,34 @@ module.exports = {
             };
             if (interaction.options.getString("jazyk") == "cs") return interaction.editReply({content: "CS: Může být nepřesný \n\n" + randomresponse})
             if (interaction.options.getString("jazyk") == "en") return interaction.editReply({content: "En: Přesný \n\n" + randomresponse})
-        } else if (interaction.options.getSubcommand("číslo")) {
+            
+        }
+        if (interaction.options.getSubcommand() === "číslo") {
             if (interaction.options.getInteger("počet") > 30) return interaction.reply({content: "EMBED: Vybral jsi až moc velké číslo Max 30"})
             await interaction.deferReply();
             let randomresponse = "";
-            function getRandomInt(from: number = 0, to: number = 9999, negative: string) {
+            function getRandomInt(from: any = 0, to: any = 9999, negative: string) {
+                if (from === null) from = 0
+                if (to === null) from = 9999
                 from = Math.ceil(from);
                 to = Math.floor(to);
-                const random = Math.floor(Math.random() * (to - from) + from);
+                let random = Math.floor(Math.random() * (to - from) + from);
                 if (negative == "all") return Math.abs(random) * -1
-                if (negative == "random") {
-                    if (random > 45) return Math.abs(random) * -1
+                else if (negative == "random") {
+                    console.log("1")
+                    if (random > Math.round(random / 100 * Math.random() * 100)) return Math.abs(random) * -1
+                } else {
+                    return random
                 }
             }
                   
             
-            for  (let i = 0; i < interaction.getInteger("počet"); i++) {
-                getRandomInt(interaction.options.getInteger("od"), interaction.options.getInteger("from"), interaction.options.getString("záporné") || interaction)
+            for  (let i = 0; i < interaction.options.getInteger("počet"); i++) {
+                //randomresponse += `${getRandomInt(interaction.options.getInteger("od") = , interaction.options.getInteger("from") || null, interaction.options.getString("záporné"))}\n`
+                console.log(getRandomInt(interaction.options.getInteger("od"), interaction.options.getInteger("do"), interaction.options.getString("záporné")))
             }
+            
+            interaction.editReply({ content: "Random číslos:" + randomresponse})
         }
 	},
 };

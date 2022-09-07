@@ -16,9 +16,9 @@ module.exports = {
 
         //KeepAlive
         const PollHandler = require("../inthandlers/poll");
-        const FoodHandler = require("../inthandlers/food");
+        //const FoodHandler = require("../inthandlers/food");
         PollHandler(client);
-        FoodHandler(client);
+        //FoodHandler(client);
 
         //ready
         client.user.setStatus("away");
