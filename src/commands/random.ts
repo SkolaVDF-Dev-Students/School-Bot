@@ -32,18 +32,18 @@ module.exports = {
                     option.setName("počet")
                         .setDescription("Vybere maximální počet vygenerovaných čísel. Max 30")
                         .setRequired(true))
-                .addStringOption(option => 
+                .addIntegerOption(option => 
                     option.setName("od")
                     .setDescription("Umožňuje specifikovat od kterého čísla se mají náhodné čísla generovat"))
-                .addStringOption(option => 
+                .addIntegerOption(option => 
                     option.setName("do")
                         .setDescription("Umožňuje specifikovat do kterého čísla se mají náhodné čísla generovat. Max 9999"))
                 .addStringOption(option => 
-                    option.setName("záporná")
+                    option.setName("záporné")
                         .setDescription("Umožnujě specifikovat zda mají čísla být zaporná nebo kladná")
                         .addChoices(
-                            { name: "Všechny", value: "" },
-                            { name: "Nahodně", value: ""}
+                            { name: "Všechny", value: "all" },
+                            { name: "Nahodně", value: "random"}
                         )
                 )),
 	async execute(interaction:any) {
@@ -65,19 +65,19 @@ module.exports = {
             if (interaction.options.getInteger("počet") > 30) return interaction.reply({content: "EMBED: Vybral jsi až moc velké číslo Max 30"})
             await interaction.deferReply();
             let randomresponse = "";
-            function getRandomInt(from: number = 0, to: number = 99, negative: boolean, negative_random: boolean) {
+            function getRandomInt(from: number = 0, to: number = 9999, negative: string) {
                 from = Math.ceil(from);
                 to = Math.floor(to);
                 const random = Math.floor(Math.random() * (to - from) + from);
-                if (negative) return Math.abs(random) * -1
-                if (negative_random) {
+                if (negative == "all") return Math.abs(random) * -1
+                if (negative == "random") {
                     if (random > 45) return Math.abs(random) * -1
                 }
             }
                   
             
             for  (let i = 0; i < interaction.getInteger("počet"); i++) {
-                getRandomInt(interaction.options.getString("od") || 0, interaction)
+                getRandomInt(interaction.options.getInteger("od"), interaction.options.getInteger("from"), interaction.options.getString("záporné") || interaction)
             }
         }
 	},
