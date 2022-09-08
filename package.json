@@ -13,8 +13,8 @@
         "deepl-node": "^1.5.0",
         "discord-api-types": "^0.33.3",
         "discord.js": "^14.0.3",
-        "random-words": "^1.2.0",
         "node-cron": "^3.0.2",
+        "random-words": "^1.2.0",
         "xml2json": "^0.12.0"
     },
     "scripts": {

@@ -35,7 +35,7 @@ module.exports = {
                 .addIntegerOption(option => 
                     option.setName("od")
                     .setDescription("Umožňuje specifikovat od kterého čísla se mají náhodné čísla generovat"))
-                .addNumberOption(option => 
+                .addIntegerOption(option => 
                     option.setName("do")
                         .setDescription("Umožňuje specifikovat do kterého čísla se mají náhodné čísla generovat. Max 9999"))
                 .addStringOption(option => 
@@ -68,15 +68,20 @@ module.exports = {
             await interaction.deferReply();
             let randomresponse = "";
             function getRandomInt(from: any = 0, to: any = 9999, negative: string) {
+                console.log("1" + from)
+                console.log("1" + to)
                 if (from === null) from = 0
                 if (to === null) from = 9999
+                console.log("2" + from)
+                console.log("2" + to)
                 from = Math.ceil(from);
                 to = Math.floor(to);
                 let random = Math.floor(Math.random() * (to - from) + from);
                 if (negative == "all") return Math.abs(random) * -1
                 else if (negative == "random") {
                     console.log("1")
-                    if (random > Math.round(random / 100 * Math.random() * 100)) return Math.abs(random) * -1
+                    if (50 > Math.round(1 * (Math.random() * 100))) return Math.abs(random) * -1
+                    else return random
                 } else {
                     return random
                 }
@@ -84,7 +89,7 @@ module.exports = {
                   
             
             for  (let i = 0; i < interaction.options.getInteger("počet"); i++) {
-                //randomresponse += `${getRandomInt(interaction.options.getInteger("od") = , interaction.options.getInteger("from") || null, interaction.options.getString("záporné"))}\n`
+                randomresponse += `${getRandomInt(interaction.options.getInteger("od"), interaction.options.getInteger("do"), interaction.options.getString("záporné"))}\n`
                 console.log(getRandomInt(interaction.options.getInteger("od"), interaction.options.getInteger("do"), interaction.options.getString("záporné")))
             }
             
