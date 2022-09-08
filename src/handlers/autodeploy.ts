@@ -4,12 +4,12 @@ import fs from "node:fs";
 import { REST } from "@discordjs/rest";
 import BotData from "../configs/bot/bot.json"
 import { Routes } from "discord-api-types/v9";
-exports.run = async (client:any) => {
+export default async function AutoDeploy (client:any) {
     const commands = [];
     client.commands = new Collection();
     const commandsPath = path.join(__dirname, '../commands/');
-    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
+    console.log(commandsPath)
     for (const file of commandFiles) {
 	    const filePath = path.join(commandsPath, file);
 	    const command = require(filePath);
@@ -23,7 +23,7 @@ exports.run = async (client:any) => {
     }
 
     const rest = new REST({ version: '9' }).setToken(BotData.token);
-
+    console.log("chongus")
     rest.put(Routes.applicationGuildCommands(BotData.clientId, BotData.guildId), { body: commands })
 	    .then(() => {
         console.log("[","\x1b[43m","Commands","\x1b[0m","]","\x1b[0m"," Changes were detected! Applaying them now!")

@@ -1,9 +1,10 @@
 import path from "node:path";
 import fs from "node:fs";
-module.exports = async (client:any) => {
+
+export default async function EventsHandler(client:any) {
+    console.log("chongus")
     const eventsPath = path.join(__dirname, '../events/');
-    const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
-    
+    const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
     for (const file of eventFiles) {
         const filePath = path.join(eventsPath, file);
         const event = require(filePath);
@@ -15,4 +16,3 @@ module.exports = async (client:any) => {
         }
     }
 }
-

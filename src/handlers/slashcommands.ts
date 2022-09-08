@@ -1,10 +1,11 @@
-import { Client, Collection, EmbedBuilder } from "discord.js";
+import { Client, Collection, EmbedBuilder, SlashCommandAssertions } from "discord.js";
 import path from "node:path";
 import fs from "node:fs";
-module.exports = async (client:any) => {
+
+export default async function SlashCommandsHandler(client: any) {
     client.commands = new Collection();
     const commandsPath = path.join(__dirname, '../commands/');
-    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+    const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
     for (const file of commandFiles) {
         const filePath = path.join(commandsPath, file);
         const command = require(filePath);
@@ -28,6 +29,4 @@ module.exports = async (client:any) => {
             await interaction.reply({ embeds: [ERROR], ephemeral: true });
         }
     });
-    
 }
-

@@ -68,18 +68,13 @@ module.exports = {
             await interaction.deferReply();
             let randomresponse = "";
             function getRandomInt(from: any = 0, to: any = 9999, negative: string) {
-                console.log("1" + from)
-                console.log("1" + to)
                 if (from === null) from = 0
                 if (to === null) from = 9999
-                console.log("2" + from)
-                console.log("2" + to)
                 from = Math.ceil(from);
                 to = Math.floor(to);
                 let random = Math.floor(Math.random() * (to - from) + from);
                 if (negative == "all") return Math.abs(random) * -1
                 else if (negative == "random") {
-                    console.log("1")
                     if (50 > Math.round(1 * (Math.random() * 100))) return Math.abs(random) * -1
                     else return random
                 } else {
@@ -90,7 +85,6 @@ module.exports = {
             
             for  (let i = 0; i < interaction.options.getInteger("počet"); i++) {
                 randomresponse += `${getRandomInt(interaction.options.getInteger("od"), interaction.options.getInteger("do"), interaction.options.getString("záporné"))}\n`
-                console.log(getRandomInt(interaction.options.getInteger("od"), interaction.options.getInteger("do"), interaction.options.getString("záporné")))
             }
             
             interaction.editReply({ content: "Random číslos:" + randomresponse})
