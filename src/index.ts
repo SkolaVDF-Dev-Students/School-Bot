@@ -4,6 +4,7 @@ import fs from "node:fs";
 import TEMP from "./chachesystem/temp.json";
 import { Client, GatewayIntentBits } from "discord.js";
 import AutoDeploy from "./handlers/autodeploy"
+import path from "node:path"
 //intents - client
 const INTENTS = [
     GatewayIntentBits.DirectMessages,
@@ -35,7 +36,7 @@ fs.readFile("./chachesystem/temp.json", (err:any, data:any) => {
         });
     }
 });
-const length = fs.readdirSync("./commands/").length;
+const length = fs.readdirSync(path.join(__dirname, "./commands")).length;
 if (TEMP.TEMP.editDeploy !== length) {
     AutoDeploy(client)
 } else {

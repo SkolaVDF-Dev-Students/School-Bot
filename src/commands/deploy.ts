@@ -1,9 +1,10 @@
-import { EmbedBuilder, Collection, SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, Collection, SlashCommandBuilder, Client } from "discord.js";
 import { token } from "../configs/bot/bot.json"
 import path from "node:path";
 import fs from "node:fs";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
+import AutoDeploy from "../handlers/autodeploy";
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('cmddeploy')
@@ -18,8 +19,7 @@ module.exports = {
             console.log("DEBUG: Client shutdown")
         })
         .then(() => {
-            let commandFile = require("../handlers/autodeploy");
-            commandFile.run(interaction.client);
+            AutoDeploy(interaction.client)
         })
         .then(() => interaction.client.login(token))
         .then(() => {
