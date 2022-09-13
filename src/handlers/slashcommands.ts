@@ -12,7 +12,7 @@ export default async function SlashCommandsHandler(client: any) {
         console.log("[","\x1b[43m","C","\x1b[0m","]","\x1b[4m", file, "\x1b[0m" + " Loaded!")
         client.commands.set(command.data.name, command);
     }
-    client.on('interactionCreate', async (interaction: { isChatInputCommand: () => any; commandName: any; reply: (arg0: { embeds: EmbedBuilder[]; ephemeral: boolean; }) => any; }) => {
+    client.on('interactionCreate', async (interaction:any) => {
         if (!interaction.isChatInputCommand()) return;
     
         const command = client.commands.get(interaction.commandName);
