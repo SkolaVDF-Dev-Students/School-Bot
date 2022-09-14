@@ -14,7 +14,7 @@ export default async function SlashCommandsHandler(client: any) {
     }
     client.on('interactionCreate', async (interaction:any) => {
         if (!interaction.isChatInputCommand()) return;
-    
+        console.log("sus")
         const command = client.commands.get(interaction.commandName);
     
         if (!command) return;

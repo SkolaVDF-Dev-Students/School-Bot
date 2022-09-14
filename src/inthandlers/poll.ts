@@ -17,7 +17,6 @@ module.exports = async (client:any) => {
                 let message = await channel.messages.fetch(element.id);
                 let difference = new Date(element.end).getTime() - new Date().getTime();
                 let object = await data.find((obj: { id: any }) => obj.id === message.id);
-                console.log(difference);
                 if (difference < 0) {
                     let updated = EmbedBuilder.from(message.embeds[0]);
                     updated.setFields(
@@ -45,7 +44,6 @@ module.exports = async (client:any) => {
     client.on(
         "interactionCreate",
         async (interaction: any) => {
-            console.log("1")
             //Vote function
             function poll_vote(action: string) {
                 fs.readFile(path.join(__dirname, "../store/poll.json"), async (err, res: any) => {
@@ -66,7 +64,7 @@ module.exports = async (client:any) => {
                             updated.setFields(
                                 { name: "👍 **Up Votes**", value: `**${object.up}**`, inline: true },
                                 { name: "👎 **Down Votes**", value: `**${object.down}**`, inline: true },
-                                { name: "Poll ends in:", value: `<t:${Math.round(object.end / 1000)}:R>` }
+                                { name: interaction.message.embeds[0].fields[2].name, value: interaction.message.embeds[0].fields[2].value }
                             );
                             await interaction
                                 .update({
