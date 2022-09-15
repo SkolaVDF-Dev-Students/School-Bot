@@ -8,13 +8,12 @@ export default async function SlashCommandsHandler(client: any) {
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
     for (const file of commandFiles) {
         const filePath = path.join(commandsPath, file);
-        const command = require(filePath);
+        const command = await import(filePath);
         console.log("[","\x1b[43m","C","\x1b[0m","]","\x1b[4m", file, "\x1b[0m" + " Loaded!")
         client.commands.set(command.data.name, command);
     }
     client.on('interactionCreate', async (interaction:any) => {
         if (!interaction.isChatInputCommand()) return;
-        console.log("sus")
         const command = client.commands.get(interaction.commandName);
     
         if (!command) return;
