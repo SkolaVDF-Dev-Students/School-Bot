@@ -11,11 +11,11 @@ module.exports = {
         console.log("\x1b[34m", "╚═════════════╝", "\x1b[0m");
         console.log("• Action:", "\x1b[33m", "Started", "\x1b[0m", "-", "\x1b[32m", "Online", "\x1b[0m");
         console.log(`• Logged as: ${client.user.tag}`);
-        console.log(`• Discord Js version: ${require("../../package.json").dependencies["discord.js"]}`);
+        console.log(`• Discord Js version: ${await (await import("../../package.json")).dependencies["discord.js"]}`);
         console.log(`• Bot Core state: BareBones(Basic)`);
 
         //KeepAlive
-        const PollHandler = require("../inthandlers/poll");
+        const PollHandler = require("../inthandlers/poll"); // REWORK THIS IN NEW BRANCH
         //const FoodHandler = require("../inthandlers/food");
         PollHandler(client);
         //FoodHandler(client);
