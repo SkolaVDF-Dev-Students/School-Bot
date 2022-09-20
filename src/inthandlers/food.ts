@@ -4,7 +4,7 @@ import foodConf from "../configs/food.json";
 import * as utils from "../utils/utils";
 
 module.exports = async (client: any) => {
-    let channel = client.channels.cache.get(foodConf.permanentChannelFood);
+    let channel = await client.channels.fetch(foodConf.permanentChannelFood);
 
     let data: any = await utils.getStravaData("today", "", false);
 

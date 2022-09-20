@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "private": "true",
+    "type": "module",
     "main": "src/index.ts",
     "dependencies": {
         "@discordjs/builders": "^0.14.0",
