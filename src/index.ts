@@ -1,5 +1,5 @@
 // Imports
-import BotConf from "./configs/bot/bot.json";
+import * as BotConf from "./configs/bot/bot.json";
 import fs from "node:fs";
 import TEMP from "./chachesystem/temp.json";
 import { Client, GatewayIntentBits } from "discord.js";

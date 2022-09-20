@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import PollConf from "../configs/poll.json";
 
-module.exports = async (client:any) => {
+export default async function PollHandler(client:any) {
     const ended = new EmbedBuilder().setDescription("This poll has ended!").setColor("#e11616");
     const alreadyvoted = new EmbedBuilder().setDescription("You already voted on this poll").setColor("#ffb923");
 
@@ -52,7 +52,7 @@ module.exports = async (client:any) => {
                     let object = await data.find((obj: { id: any }) => obj.id === interaction.message.id);
                     if (data.find((obj: { id: any }) => obj.id === interaction.message.id)) {
                         if (object.users.includes(interaction.user.id)) {
-                            interaction.reply({ embeds: [alreadyvoted], ephemeral: true });
+                            interaction.reply({ embeds: [alreadyvoted], ephermeral: true });
                         } else {
                             if (action == "up") object.up++;
                             else if (action == "down") object.down++;
