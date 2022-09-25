@@ -21,7 +21,7 @@ const INTENTS = [
     GatewayIntentBits.MessageContent,
 ];
 const client = new Client({ intents: INTENTS });
-//Loading
+//Loding
 console.log("\x1b[34m", "╔════════════════════════╗", "\x1b[0m", "\n\x1b[36m", "  Bot Core -", "\x1b[0m", "Loading...", "\n\x1b[34m", "╚════════════════════════╝", "\x1b[0m");
 console.log("[", "\x1b[43m", "Commands AutoDeploy", "\x1b[0m", "]", "\x1b[0m","Checking for new commands...")
 //Auto deploy cmds

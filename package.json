@@ -1,13 +1,11 @@
 {
     "name": "botbase",
     "version": "1.0.0",
-    "description": "",
     "private": "true",
     "main": "src/index.ts",
     "dependencies": {
         "@discordjs/builders": "^0.14.0",
         "@discordjs/rest": "^0.5.0",
-        "@types/xml2json": "^0.11.4",
         "axios": "^0.27.2",
         "deepai": "^1.0.21",
         "deepl-node": "^1.5.0",

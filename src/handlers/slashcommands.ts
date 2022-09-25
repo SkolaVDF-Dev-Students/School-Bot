@@ -1,4 +1,4 @@
-import { Collection, EmbedBuilder } from "discord.js";
+import { Client, Collection, EmbedBuilder } from "discord.js";
 import path from "node:path";
 import fs from "node:fs";
 
