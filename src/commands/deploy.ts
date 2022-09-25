@@ -5,8 +5,7 @@ import fs from "node:fs";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import AutoDeploy from "../handlers/autodeploy";
-export default async () => {console.log("s")};
-/*module.exports = {
+module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('cmddeploy')
         .setDescription('Admin'),
@@ -27,4 +26,4 @@ export default async () => {console.log("s")};
             console.log("DEBUG: Client Online!")
         })
 	},
-};*/
+};
