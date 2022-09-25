@@ -17,7 +17,7 @@ const INTENTS = [
     GatewayIntentBits.MessageContent,
 ];
 const client = new Client({ intents: INTENTS });
-//Loading
+//Loding
 console.log("\x1b[34m", "╔════════════════════════╗", "\x1b[0m", "\n\x1b[36m", "  Bot Core -", "\x1b[0m", "Loading...", "\n\x1b[34m", "╚════════════════════════╝", "\x1b[0m");
 const EventsHandler = require("./handlers/events");
 const SlashCommandsHandler = require("./handlers/slashcommands");
