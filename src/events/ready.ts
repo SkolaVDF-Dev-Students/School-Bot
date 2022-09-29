@@ -1,6 +1,7 @@
 import BotData from "../configs/bot/bot.json";
 import StatusConf from "../configs/bot/status.json";
 import PollHandler from "../inthandlers/poll"
+import FoodHandler from "../inthandlers/food"
 module.exports = {
     name: "ready",
     once: false,
@@ -16,10 +17,8 @@ module.exports = {
         console.log(`• Bot Core state: BareBones(Basic)`);
 
         //KeepAlive
-        //const PollHandler = require("../inthandlers/poll"); // REWORK THIS IN NEW BRANCH
-        //const FoodHandler = require("../inthandlers/food");
         PollHandler(client);
-        //FoodHandler(client);
+        FoodHandler(client);
 
         //ready
         client.user.setStatus("away");

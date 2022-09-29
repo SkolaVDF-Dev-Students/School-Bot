@@ -71,7 +71,7 @@ module.exports = {
         if (data[0].name == "Nastala chyba" || data[0].name == "Trefil jsem se na víkend") {
             return interaction.editReply({ content: "", embeds: [embed] });
         }
-
         return interaction.editReply({ content: "", embeds: [embed], components: [row] });
     },
 };
+

@@ -91,9 +91,9 @@ export async function getStravaData(format: string, date: string, alergeny: bool
     let parsed: any = JSON.parse(parsedToJson);
 
     const EFormat = {
-        TODAY: "today",
-        TOMORROW: "tomorrow",
-        DATE: "date",
+        TODAY: "dnes",
+        TOMORROW: "zítra",
+        DATE: "datum",
     };
 
     switch (format) {
@@ -104,6 +104,7 @@ export async function getStravaData(format: string, date: string, alergeny: bool
         case EFormat.DATE:
             return extractDataFromStrava(parsed, true, date, alergeny);
         default:
-            return "Something happened whoops";
+            console.log(format)
+            return [{ name: "Nastala chyba", value: "Nejspíš bylo zadáno špatné datum, zkus to znovu." }];
     }
 }

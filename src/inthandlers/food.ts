@@ -3,7 +3,7 @@ import EmbedData from "../configs/bot/embeds.json";
 import foodConf from "../configs/food.json";
 import * as utils from "../utils/utils";
 
-module.exports = async (client: any) => {
+export default async function FoodHandler(client:any) {
     let channel = client.channels.cache.get(foodConf.permanentChannelFood);
 
     let data: any = await utils.getStravaData("today", "", false);
@@ -24,6 +24,7 @@ module.exports = async (client: any) => {
             iconURL: EmbedData.footer.icon_url,
         },
     };
+    console.log(embed)
 
     let todayDate = new Date();
     let checkDate = todayDate.getDay() === 0 || todayDate.getDay() === 6;
@@ -42,7 +43,8 @@ module.exports = async (client: any) => {
         if (!interaction.isButton()) return;
         if (interaction.customId === "500") {
             let commandName = interaction.message.interaction.commandName;
-            commandName = commandName.split("food ");
+            console.log(commandName)
+            commandName = commandName.split("jídlo ");
             commandName = commandName[1];
             let embed: any = interaction.message.embeds[0].data;
             embed.fields = await utils.getStravaData(commandName, interaction.message.embeds[0].data.timestamp, true);
