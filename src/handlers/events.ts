@@ -2,7 +2,6 @@ import path from "node:path";
 import fs from "node:fs";
 
 export default async function EventsHandler(client:any) {
-    console.log("chongus")
     const eventsPath = path.join(__dirname, '../events/');
     const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
     for (const file of eventFiles) {

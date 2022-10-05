@@ -24,8 +24,6 @@ export default async function FoodHandler(client:any) {
             iconURL: EmbedData.footer.icon_url,
         },
     };
-    console.log(embed)
-
     let todayDate = new Date();
     let checkDate = todayDate.getDay() === 0 || todayDate.getDay() === 6;
 
@@ -43,7 +41,6 @@ export default async function FoodHandler(client:any) {
         if (!interaction.isButton()) return;
         if (interaction.customId === "500") {
             let commandName = interaction.message.interaction.commandName;
-            console.log(commandName)
             commandName = commandName.split("jídlo ");
             commandName = commandName[1];
             let embed: any = interaction.message.embeds[0].data;

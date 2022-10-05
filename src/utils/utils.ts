@@ -47,7 +47,6 @@ export function getDate(today: boolean, date: string) {
 
 export function extractDataFromStrava(parsed: any, switcher: boolean, date: string = "", alergeny: boolean = false) {
     let dateChecker = getDate(switcher, date);
-
     if (dateChecker === 404) return [{ name: "Trefil jsem se na víkend", value: "Jenže o víkendu se nic nevaří." }];
 
     if (dateChecker === 401) return [{ name: "Nastala chyba", value: "Nejspíš bylo zadáno špatné datum, zkus to znovu." }];
@@ -104,7 +103,6 @@ export async function getStravaData(format: string, date: string, alergeny: bool
         case EFormat.DATE:
             return extractDataFromStrava(parsed, true, date, alergeny);
         default:
-            console.log(format)
             return [{ name: "Nastala chyba", value: "Nejspíš bylo zadáno špatné datum, zkus to znovu." }];
     }
 }
