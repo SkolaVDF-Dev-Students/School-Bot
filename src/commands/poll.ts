@@ -2,8 +2,7 @@ import { EmbedBuilder, Permissions, Interaction, ActionRowBuilder, ButtonBuilder
 import fs from "node:fs";
 import path from "node:path";
 import EmbedData from "../configs/bot/embeds.json";
-const pollpath = path.join(__dirname, "../store/poll.json");
-//import pollpath from "../store/poll.json";
+import pollpath from "../store/poll.json"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("poll")
@@ -30,24 +29,24 @@ module.exports = {
                 saveToJSON(message.channelId);
             });
         } else {
-            await interaction.reply({ embeds: [poll], components: [row], fetchReply: true }).then(async (message:any) => {
+            interaction.reply({ embeds: [poll], components: [row], fetchReply: true }).then(async (message:any) => {
                 saveToJSON(message.id);
             });
         }
 
         function saveToJSON(id:any) {
-            fs.readFile(pollpath, (err:any, res:any) => {
+            fs.readFile(path.join(__dirname, "../store/poll.json"), (err:any, res:any) => {
                 if (err) return console.error(err);
                 let data = JSON.parse(res);
                 const messageObject = {
                     id: id,
-                    end: new Date().setDate(new Date().getDate() + 1),
+                    end: new Date().setDate(new Date().getDate() + 5),
                     up: 0,
                     down: 0,
                     users: [],
                 };
                 data.push(messageObject);
-                fs.writeFile(pollpath, JSON.stringify(data), (err) => {
+                fs.writeFile(path.join(__dirname, "../store/poll.json"), JSON.stringify(data), (err) => {
                     if (err) console.error(err);
                 });
             });
