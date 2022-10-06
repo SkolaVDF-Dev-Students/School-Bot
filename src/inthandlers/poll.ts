@@ -2,32 +2,30 @@ import { EmbedBuilder } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
 import PollConf from "../configs/poll.json";
-const pollpath = path.join(__dirname, "../store/poll.json");
 
-module.exports = async (client:any) => {
+export default async function PollHandler(client:any) {
     const ended = new EmbedBuilder().setDescription("This poll has ended!").setColor("#e11616");
     const alreadyvoted = new EmbedBuilder().setDescription("You already voted on this poll").setColor("#ffb923");
 
     // chcker function
     function check_delete() {
-        fs.readFile(pollpath, async (err, res: any) => {
+        fs.readFile(path.join(__dirname, "../store/poll.json"), async (err, res: any) => {
             if (err) return console.error(err);
             let data = await JSON.parse(res);
             data.forEach(async (element: { id: any; end: string | number | Date }) => {
-                let channel = await client.channels.fetch(PollConf["channel-id"]);
+                let channel = await client.channels.fetch(PollConf["channel_id"]);
                 let message = await channel.messages.fetch(element.id);
                 let difference = new Date(element.end).getTime() - new Date().getTime();
                 let object = await data.find((obj: { id: any }) => obj.id === message.id);
-                console.log(difference);
                 if (difference < 0) {
                     let updated = EmbedBuilder.from(message.embeds[0]);
                     updated.setFields(
                         { name: "👍 **Up Votes**", value: `**${object.up}**`, inline: true },
                         { name: "👎 **Down Votes**", value: `**${object.down}**`, inline: true },
-                        { name: "The poll ended on:", value: `<t:${Math.round(Date.now() / 1000)}:R>` }
+                        { name: "The poll ended on:", value: `<t:${Math.round(Date.now() / 1000)}:f>` }
                     );
                     data = data.filter((obj: { id: any }) => obj.id !== message.id);
-                    await fs.writeFile(pollpath, JSON.stringify(data), (err: any) => {
+                    await fs.writeFile(path.join(__dirname, "../store/poll.json"), JSON.stringify(data), (err: any) => {
                         if (err) console.error(err);
                     });
                     await message
@@ -48,25 +46,25 @@ module.exports = async (client:any) => {
         async (interaction: any) => {
             //Vote function
             function poll_vote(action: string) {
-                fs.readFile(pollpath, async (err, res: any) => {
+                fs.readFile(path.join(__dirname, "../store/poll.json"), async (err, res: any) => {
                     if (err) return console.error(err);
                     let data = await JSON.parse(res);
                     let object = await data.find((obj: { id: any }) => obj.id === interaction.message.id);
                     if (data.find((obj: { id: any }) => obj.id === interaction.message.id)) {
                         if (object.users.includes(interaction.user.id)) {
-                            interaction.reply({ embeds: [alreadyvoted], ephemeral: true });
+                            interaction.reply({ embeds: [alreadyvoted], ephermeral: true });
                         } else {
                             if (action == "up") object.up++;
                             else if (action == "down") object.down++;
                             await object.users.push(interaction.user.id);
-                            fs.writeFile(pollpath, JSON.stringify(data), (err: any) => {
+                            fs.writeFile(path.join(__dirname, "../store/poll.json"), JSON.stringify(data), (err: any) => {
                                 if (err) console.error(err);
                             });
                             let updated = EmbedBuilder.from(interaction.message.embeds[0]);
                             updated.setFields(
                                 { name: "👍 **Up Votes**", value: `**${object.up}**`, inline: true },
                                 { name: "👎 **Down Votes**", value: `**${object.down}**`, inline: true },
-                                { name: "Poll ends in:", value: `<t:${Math.round(object.end / 1000)}:f>` }
+                                { name: interaction.message.embeds[0].fields[2].name, value: interaction.message.embeds[0].fields[2].value }
                             );
                             await interaction
                                 .update({

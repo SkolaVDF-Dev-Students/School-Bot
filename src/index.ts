@@ -3,6 +3,10 @@ import BotConf from "./configs/bot/bot.json";
 import fs from "node:fs";
 import TEMP from "./chachesystem/temp.json";
 import { Client, GatewayIntentBits } from "discord.js";
+import AutoDeploy from "./handlers/autodeploy"
+import path from "node:path"
+import EventsHandler from "./handlers/events";
+import SlashCommandsHandler from "./handlers/slashcommands";
 //intents - client
 const INTENTS = [
     GatewayIntentBits.DirectMessages,
@@ -17,12 +21,9 @@ const INTENTS = [
     GatewayIntentBits.MessageContent,
 ];
 const client = new Client({ intents: INTENTS });
-//Loading
+//Loding
 console.log("\x1b[34m", "╔════════════════════════╗", "\x1b[0m", "\n\x1b[36m", "  Bot Core -", "\x1b[0m", "Loading...", "\n\x1b[34m", "╚════════════════════════╝", "\x1b[0m");
-const EventsHandler = require("./handlers/events");
-const SlashCommandsHandler = require("./handlers/slashcommands");
-EventsHandler(client);
-SlashCommandsHandler(client);
+console.log("[", "\x1b[43m", "Commands AutoDeploy", "\x1b[0m", "]", "\x1b[0m","Checking for new commands...")
 //Auto deploy cmds
 fs.readFile("./chachesystem/temp.json", (err:any, data:any) => {
     if (!err || data) {
@@ -34,11 +35,13 @@ fs.readFile("./chachesystem/temp.json", (err:any, data:any) => {
         });
     }
 });
-const length = fs.readdirSync("./dist/commands/").length;
+const length = fs.readdirSync(path.join(__dirname, "./commands")).length;
 if (TEMP.TEMP.editDeploy !== length) {
-    let commandFile = require("./handlers/autodeploy");
-    commandFile.run(client);
+    AutoDeploy(client)
 } else {
-    console.log("[", "\x1b[43m", "Commands", "\x1b[0m", "]", "\x1b[0m", " No edit to commands were made... Skipping");
+    console.log("[", "\x1b[43m", "Commands", "\x1b[0m", "]", "\x1b[0m", " No new commands were detected... Skipping");
 }
+// main handlers
+EventsHandler(client);
+SlashCommandsHandler(client);
 client.login(BotConf.token);

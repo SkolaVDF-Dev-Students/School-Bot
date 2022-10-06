@@ -69,9 +69,10 @@ module.exports = {
         const row = new ActionRowBuilder().addComponents(new ButtonBuilder().setCustomId("500").setLabel("Zobrazit Alergeny").setEmoji("📜").setStyle(ButtonStyle.Secondary));
 
         if (data[0].name == "Nastala chyba" || data[0].name == "Trefil jsem se na víkend") {
+            embed.timestamp = new Date().toISOString();
             return interaction.editReply({ content: "", embeds: [embed] });
         }
-
         return interaction.editReply({ content: "", embeds: [embed], components: [row] });
     },
 };
+

@@ -23,3 +23,7 @@ Food Command:
     ✔ add /food datum 18.5 @done(22-09-02 22:45)
     ✔ button for show "alergeny" @done(22-09-03 18:59)
 
+Random Command:
+    Numbers:
+        make a function to create random numbers and being able to specify length and negatively and positive numbers
+
