@@ -44,4 +44,4 @@ if (TEMP.TEMP.editDeploy !== length) {
 // main handlers
 EventsHandler(client);
 SlashCommandsHandler(client);
-client.login(BotConf.token);
+client.login(BotConf.token)
