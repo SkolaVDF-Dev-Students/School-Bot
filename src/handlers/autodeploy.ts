@@ -9,7 +9,6 @@ export default async function AutoDeploy (client:any) {
     client.commands = new Collection();
     const commandsPath = path.join(__dirname, '../commands/');
     const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
-    console.log(commandsPath)
     for (const file of commandFiles) {
 	    const filePath = path.join(commandsPath, file);
 	    const command = await import(filePath);

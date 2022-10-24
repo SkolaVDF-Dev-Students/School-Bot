@@ -4,7 +4,10 @@ import fs, { Dir, read, readdir } from "node:fs";
 import { nest_limit } from "../configs/bot/slashcommands.json"
 let commandFiles:any = [];
 async function LoopDir(dir:string, level:number) {
-    if(level > nest_limit && nest_limit) throw new Error("MOC HLUBUKU XD")
+    if(level > nest_limit && nest_limit) {
+        console.log("[","\x1b[41m","Error","\x1b[0m","]")
+        throw new Error("Folder nest limit reached");
+    }
     const elements = fs.readdirSync(dir);
     
     for(const element of elements) {
@@ -16,17 +19,18 @@ async function LoopDir(dir:string, level:number) {
 export default async function SlashCommandsHandler(client: any) {
     client.commands = new Collection();
     const commandsPath = path.join(__dirname, '../commands/');
-    //const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts'));
     await LoopDir(commandsPath, 0);
-    console.log(commandFiles);
-
         
     for (const file of commandFiles) {
         const command = await import(file);
-        console.log("[","\x1b[43m","C","\x1b[0m","]","\x1b[4m", file, "\x1b[0m" + " Loaded!")
-        console.log(command.data);
-        //client.commands.set(command.data.name, command);
+        console.log("[","\x1b[43m","C","\x1b[0m","]","\x1b[4m", path.basename(file), "\x1b[0m" + " Loaded!");
+        if(!command.data) {
+            console.log("[","\x1b[41m","Error","\x1b[0m","]");
+            throw new Error("Missing command data at:  "+file);
+        }
+        client.commands.set(command.data.name, command);
     }
+
     client.on('interactionCreate', async (interaction:any) => {
         if (!interaction.isChatInputCommand()) return;
         const command = client.commands.get(interaction.commandName);

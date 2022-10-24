@@ -35,12 +35,13 @@ fs.readFile("./chachesystem/temp.json", (err:any, data:any) => {
         });
     }
 });
-const length = fs.readdirSync(path.join(__dirname, "./commands")).length;
-if (TEMP.TEMP.editDeploy !== length) {
-    AutoDeploy(client)
-} else {
-    console.log("[", "\x1b[43m", "Commands", "\x1b[0m", "]", "\x1b[0m", " No new commands were detected... Skipping");
-}
+fs.readdir(path.join(__dirname, "./commands"), (err:any, data:any) =>{
+    if (TEMP.TEMP.editDeploy !== data.length) {
+        AutoDeploy(client)
+    } else {
+        console.log("[", "\x1b[43m", "Commands", "\x1b[0m", "]", "\x1b[0m", " No new commands were detected... Skipping");
+    }
+})
 // main handlers
 EventsHandler(client);
 SlashCommandsHandler(client);
