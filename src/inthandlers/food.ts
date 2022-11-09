@@ -3,7 +3,7 @@ import EmbedData from "../configs/bot/embeds.json";
 import foodConf from "../configs/food.json";
 import * as utils from "../utils/utils";
 
-export default async function FoodHandler(client:any) {
+export default async function FoodHandler(client: any) {
     let channel = client.channels.cache.get(foodConf.permanentChannelFood);
 
     let data: any = await utils.getStravaData("today", "", false);
@@ -50,4 +50,4 @@ export default async function FoodHandler(client:any) {
             return interaction.reply({ content: "", embeds: [embed], ephemeral: true });
         }
     });
-};
+}
