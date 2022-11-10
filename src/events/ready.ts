@@ -1,7 +1,5 @@
 import BotData from "../configs/bot/bot.json";
 import StatusConf from "../configs/bot/status.json";
-import PollHandler from "../inthandlers/poll"
-import FoodHandler from "../inthandlers/food"
 module.exports = {
     name: "ready",
     once: false,
@@ -15,10 +13,6 @@ module.exports = {
         console.log(`• Logged as: ${client.user.tag}`);
         console.log(`• Discord Js version: ${await (await import("../../package.json")).dependencies["discord.js"]}`);
         console.log(`• Bot Core state: BareBones(Basic)`);
-
-        //KeepAlive
-        PollHandler(client);
-        FoodHandler(client);
 
         //ready
         client.user.setStatus("away");
