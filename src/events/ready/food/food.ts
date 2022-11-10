@@ -1,7 +1,7 @@
 import cron from "node-cron";
-import EmbedData from "../configs/bot/embeds.json";
-import foodConf from "../configs/food.json";
-import * as utils from "../utils/utils";
+import EmbedData from "../../../configs/bot/embeds.json";
+import foodConf from "../../../configs/food.json";
+import * as utils from "../../../utils/utils";
 
 export default async function FoodHandler(client: any) {
     let channel = client.channels.cache.get(foodConf.permanentChannelFood);
