@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs, { Dir, read, readdir } from "node:fs";
-import { nest_limit } from "../configs/bot/slashcommands.json"
+import { nest_limit } from "../configs/bot/events.json"
 let eventsFiles:any = [];
 async function LoopDir(dir:string, level:number) {
     if(level > nest_limit && nest_limit) {
