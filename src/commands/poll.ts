@@ -2,7 +2,8 @@ import { EmbedBuilder, Permissions, Interaction, ActionRowBuilder, ButtonBuilder
 import fs from "node:fs";
 import path from "node:path";
 import EmbedData from "../configs/bot/embeds.json";
-import pollpath from "../store/poll.json"
+
+//import pollpath from "../store/poll/poll.json"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("poll")
@@ -10,6 +11,7 @@ module.exports = {
         .addStringOption((option) => option.setName("text").setDescription("Write your idea").setRequired(true))
         .addAttachmentOption((option) => option.setName("image").setDescription("Pïn some image")),
     async execute(interaction:any) {
+        let pollpath:string = "../store/poll/poll.json"
         var poll = new EmbedBuilder()
             .setTitle("» Poll «")
             .setColor("#16e1ab")
@@ -35,7 +37,7 @@ module.exports = {
         }
 
         function saveToJSON(id:any) {
-            fs.readFile(path.join(__dirname, "../store/poll.json"), (err:any, res:any) => {
+            fs.readFile(path.join(__dirname, pollpath), (err:any, res:any) => {
                 if (err) return console.error(err);
                 let data = JSON.parse(res);
                 const messageObject = {
@@ -46,7 +48,7 @@ module.exports = {
                     users: [],
                 };
                 data.push(messageObject);
-                fs.writeFile(path.join(__dirname, "../store/poll.json"), JSON.stringify(data), (err) => {
+                fs.writeFile(path.join(__dirname, pollpath), JSON.stringify(data), (err) => {
                     if (err) console.error(err);
                 });
             });

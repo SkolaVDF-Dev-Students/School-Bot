@@ -2,11 +2,11 @@ import { EmbedBuilder } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
 import PollConf from "../../../configs/poll.json";
-
 module.exports = {
     name: "ready",
     once: false,
     async execute(client: any) {
+        let pollpath:string = "../../../store/poll/poll.json"
         const ended = new EmbedBuilder()
         .setDescription("This poll has ended!")
         .setColor("#e11616");
@@ -17,7 +17,7 @@ module.exports = {
 
         // chcker function
         function check_delete() {
-            fs.readFile(path.join(__dirname, "../../../store/poll.json"), async (err, res: any) => {
+            fs.readFile(path.join(__dirname, pollpath), async (err, res: any) => {
                 if (err) return console.error(err);
                 let data = await JSON.parse(res);
                 data.forEach(async (element: { id: any; end: string | number | Date }) => {
@@ -33,7 +33,7 @@ module.exports = {
                             { name: "The poll ended on:", value: `<t:${Math.round(Date.now() / 1000)}:f>` }
                         );
                         data = data.filter((obj: { id: any }) => obj.id !== message.id);
-                        await fs.writeFile(path.join(__dirname, "../../../store/poll.json"), JSON.stringify(data), (err: any) => {
+                        await fs.writeFile(path.join(__dirname, pollpath), JSON.stringify(data), (err: any) => {
                             if (err) console.error(err);
                         });
                         await message
@@ -52,7 +52,7 @@ module.exports = {
         client.on("interactionCreate",async (interaction: any) => {
             //Vote function
             function poll_vote(action: string) {
-                fs.readFile(path.join(__dirname, "../../../store/poll.json"), async (err, res: any) => {
+                fs.readFile(path.join(__dirname, pollpath), async (err, res: any) => {
                     if (err) return console.error(err);
                     let data = await JSON.parse(res);
                     let object = await data.find((obj: { id: any }) => obj.id === interaction.message.id);
@@ -63,7 +63,7 @@ module.exports = {
                             if (action == "up") object.up++;
                             else if (action == "down") object.down++;
                             await object.users.push(interaction.user.id);
-                            fs.writeFile(path.join(__dirname, "../../../store/poll.json"), JSON.stringify(data), (err: any) => {
+                            fs.writeFile(path.join(__dirname, pollpath), JSON.stringify(data), (err: any) => {
                                 if (err) console.error(err);
                             });
                             let updated = EmbedBuilder.from(interaction.message.embeds[0]);
