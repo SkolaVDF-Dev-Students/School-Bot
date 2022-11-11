@@ -9,7 +9,7 @@
         "deepai": "^1.0.21",
         "deepl-node": "^1.5.0",
         "discord-api-types": "^0.33.5",
-        "discord.js": "^14.0.3",
+        "discord.js": "^14.6.0",
         "node-cron": "^3.0.2",
         "nodemon": "^2.0.20",
         "random-words": "^1.2.0",
