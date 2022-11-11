@@ -1,7 +1,7 @@
 // Imports
 import BotConf from "./configs/bot/bot.json";
 import fs from "node:fs";
-import TEMP from "./chachesystem/temp.json";
+import TEMP from "./store/chachesystem/temp.json";
 import { Client, GatewayIntentBits } from "discord.js";
 import AutoDeploy from "./handlers/autodeploy"
 import path from "node:path"
