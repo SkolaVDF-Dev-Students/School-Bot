@@ -1,9 +1,5 @@
-import { EmbedBuilder, Collection, SlashCommandBuilder, Client } from "discord.js";
-import { token } from "../configs/bot/bot.json"
-import path from "node:path";
-import fs from "node:fs";
-import { REST } from "@discordjs/rest";
-import { Routes } from "discord-api-types/v9";
+import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { token } from "../configs/bot/bot.json";
 import AutoDeploy from "../handlers/autodeploy";
 module.exports = {
 	data: new SlashCommandBuilder()

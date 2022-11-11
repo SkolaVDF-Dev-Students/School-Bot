@@ -1,9 +1,8 @@
-import { EmbedBuilder, Permissions, Interaction, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandBuilder } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
 import EmbedData from "../configs/bot/embeds.json";
 
-//import pollpath from "../store/poll/poll.json"
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("poll")

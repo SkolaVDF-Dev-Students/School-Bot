@@ -1,9 +1,8 @@
 
-import { Embed, Client, EmbedBuilder, SlashCommandBuilder, } from "discord.js";
-import axios from "axios";
-import randomwords from "random-words"
+import { SlashCommandBuilder } from "discord.js";
+import randomwords from "random-words";
 import * as deepl from 'deepl-node';
-const authKey = "6469a68d-1cf7-b681-ed7f-8fa091941857:fx"; // Replace with your key
+const authKey = "6469a68d-1cf7-b681-ed7f-8fa091941857:fx";
 const translator = new deepl.Translator(authKey);
 module.exports = {
 	data: new SlashCommandBuilder()

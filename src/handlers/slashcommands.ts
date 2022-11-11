@@ -1,4 +1,4 @@
-import { Client, Collection, EmbedBuilder } from "discord.js";
+import { Collection, EmbedBuilder } from "discord.js";
 import path from "node:path";
 import fs, { Dir, read, readdir } from "node:fs";
 import { nest_limit } from "../configs/bot/slashcommands.json"
