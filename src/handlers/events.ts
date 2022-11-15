@@ -1,6 +1,6 @@
 import path from "node:path";
 import fs, { Dir, read, readdir } from "node:fs";
-import { nest_limit } from "../configs/bot/events.json"
+import { nest_limit } from "../configs/bot/handlersnestlimit.json"
 let eventsFiles:any = [];
 async function LoopDir(dir:string, level:number) {
     if(level > nest_limit && nest_limit) {
@@ -11,16 +11,14 @@ async function LoopDir(dir:string, level:number) {
     
     for(const element of elements) {
         if(element.endsWith(".ts")) eventsFiles.push(dir+element);
-        else await LoopDir(dir+element+"\\", level++);
+        else await LoopDir(path.join(dir,element,"/"), level++);
     }
 }
 export default async function EventsHandler(client:any) {
     const eventsPath = path.join(__dirname, '../events/');
-    //const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
     await LoopDir(eventsPath, 0);
 
     for (const file of eventsFiles) {
-        //const filePath = path.join(eventsPath, file);
         const event = await import(file);
         console.log("[","\x1b[42m","E","\x1b[0m","]","\x1b[4m", path.basename(file), "\x1b[0m" + " Loaded!")
         if (event.once) {
