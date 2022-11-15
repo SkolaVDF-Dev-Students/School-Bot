@@ -1,7 +1,7 @@
 import { Collection, EmbedBuilder } from "discord.js";
 import path from "node:path";
 import fs, { Dir, read, readdir } from "node:fs";
-import { nest_limit } from "../configs/bot/slashcommands.json"
+import { nest_limit } from "../configs/bot/handlersnestlimit.json"
 let commandFiles:any = [];
 async function LoopDir(dir:string, level:number) {
     if(level > nest_limit && nest_limit) {
@@ -12,7 +12,7 @@ async function LoopDir(dir:string, level:number) {
     
     for(const element of elements) {
         if(element.endsWith(".ts")) commandFiles.push(dir+element);
-        else await LoopDir(dir+element+"\\", level++);
+        else await LoopDir(path.join(dir,element,"/"), level++);
     }
 }
 //made with BIG assistance of da Milk MaN
