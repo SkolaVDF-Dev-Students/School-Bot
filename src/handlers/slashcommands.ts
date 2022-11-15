@@ -12,7 +12,7 @@ async function LoopDir(dir:string, level:number) {
     
     for(const element of elements) {
         if(element.endsWith(".ts")) commandFiles.push(dir+element);
-        else await LoopDir(dir+element+"\\", level++);
+        else await LoopDir(path.join(dir,element,"/"), level++);
     }
 }
 //made with BIG assistance of da Milk MaN
