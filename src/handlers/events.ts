@@ -21,7 +21,6 @@ export default async function EventsHandler(client:any) {
 
     for (const file of eventsFiles) {
         //const filePath = path.join(eventsPath, file);
-        console.log(eventsFiles)
         const event = await import(file);
         console.log("[","\x1b[42m","E","\x1b[0m","]","\x1b[4m", path.basename(file), "\x1b[0m" + " Loaded!")
         if (event.once) {
