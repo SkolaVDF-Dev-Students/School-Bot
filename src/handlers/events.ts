@@ -16,11 +16,9 @@ async function LoopDir(dir:string, level:number) {
 }
 export default async function EventsHandler(client:any) {
     const eventsPath = path.join(__dirname, '../events/');
-    //const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.ts'));
     await LoopDir(eventsPath, 0);
 
     for (const file of eventsFiles) {
-        //const filePath = path.join(eventsPath, file);
         const event = await import(file);
         console.log("[","\x1b[42m","E","\x1b[0m","]","\x1b[4m", path.basename(file), "\x1b[0m" + " Loaded!")
         if (event.once) {

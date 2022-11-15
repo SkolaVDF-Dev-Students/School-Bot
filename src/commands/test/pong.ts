@@ -11,7 +11,7 @@ module.exports = {
 		const pong = new EmbedBuilder()
 		.setTitle("Pong! 🏓")
 		.setColor('#07bb8b')
-		.setDescription(`**AAYour latency: \`\`${yourping}ms\`\`**\n**Bot latency \`\`${botping}ms\`\`**\n\n> Bot Base is project made for simple, fast, and easy development of new bots. This project is still in the early development and not openned to public.`)
+		.setDescription(`**Your latency: \`\`${yourping}ms\`\`**\n**Bot latency \`\`${botping}ms\`\`**\n\n> Bot Base is project made for simple, fast, and easy development of new bots. This project is still in the early development and not openned to public.`)
 		.setFooter({ text: "© Bot Base by DEPSTRCZ#9987"})
 		return interaction.reply({embeds:[pong]});
 	},
