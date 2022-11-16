@@ -25,7 +25,7 @@ export default async function AutoDeploy (client:any) {
     await LoopDir(commandsPath, 0);
     for (const file of commandFiles) {
         const command = await import(file);
-        console.log("[","\x1b[46m","G","\x1b[0m","]","\x1b[4m", path.basename(file), "\x1b[0m" + " Deployed!");
+        console.log("[","\x1b[46m","D","\x1b[0m","]","\x1b[4m", path.basename(file), "\x1b[0m" + " Deployed!");
         if(!command.data) {
             console.log("[","\x1b[41m","Error","\x1b[0m","]");
             throw new Error("Missing command data at:  "+file);
