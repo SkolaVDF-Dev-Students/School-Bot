@@ -1,5 +1,5 @@
 
-import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { EmbedBuilder, SlashCommandBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } from "discord.js";
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -13,6 +13,13 @@ module.exports = {
 		.setColor('#07bb8b')
 		.setDescription(`**Your latency: \`\`${yourping}ms\`\`**\n**Bot latency \`\`${botping}ms\`\`**\n\n> Bot Base is project made for simple, fast, and easy development of new bots. This project is still in the early development and not openned to public.`)
 		.setFooter({ text: "© Bot Base by DEPSTRCZ#9987"})
-		return interaction.reply({embeds:[pong]});
+		const buttonrow = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+            .setCustomId("verify-start")
+            .setLabel("Začít proces ověření")
+            .setStyle(ButtonStyle.Primary)
+        )
+		return interaction.reply({embeds:[pong], components:[buttonrow]});
 	},
 };

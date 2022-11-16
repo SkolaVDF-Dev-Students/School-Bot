@@ -4,9 +4,9 @@ module.exports = {
         //Handler for button in verify channel
         if(interaction.isButton()) return;
         
-        const filter = (i:any) => i.customId === 'primary' && i.user.id === '122157285790187530';
+        const filter = (i:any) => i.customId === 'verify-start';
 
-        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
+        const collector = interaction.channel.createMessageComponentCollector({ filter, time: 1 });
 
         collector.on('collect', async (i:any) => {
 	        await i.update({ content: 'A button was clicked!', components: [] });

@@ -12,7 +12,7 @@ module.exports = {
         const buttonrow = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
-            .setCustomId("start-verify")
+            .setCustomId("verify-start")
             .setLabel("Začít proces ověření")
             .setStyle(ButtonStyle.Primary)
         )
