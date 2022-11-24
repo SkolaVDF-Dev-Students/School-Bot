@@ -1,3 +1,4 @@
+import { EmbedBuilder, ActionRowBuilder, ButtonStyle, ButtonBuilder, Embed} from "discord.js";
 module.exports = {
     name: "interactionCreate",
     async execute(interaction:any) {
@@ -8,8 +9,15 @@ module.exports = {
 
         const collector = interaction.channel.createMessageComponentCollector({ filter, time: 15000 });
 
+        const process = new EmbedBuilder()
+        .setTitle("Čekám na vyplnění")
+        .setColor("Orange")
+        .setDescription("Info zpráva to tom že se zobrazí modal a že začne vyplňovat")
         collector.on('collect', async (i:any) => {
-	        await i.update({ content: 'A button was clicked!', components: [] });
+	        await i.update({embeds:[process], components: []});
+            console.log("1")
+            await collector.stop("idk");
+            console.log("2")
         });
 
         collector.on('end', (collected:any) => console.log(`Collected ${collected.size} items`));
