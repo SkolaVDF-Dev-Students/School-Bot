@@ -1,10 +1,10 @@
 
-import { EmbedBuilder, SlashCommandBuilder, ActionRowBuilder, ButtonStyle, ButtonBuilder } from "discord.js";
+import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
-		.setDescription('Responds with latency of the bot and pong '),
+		.setDescription('Responds with latency of the bot and pong'),
 	async execute(interaction:any) {
 		let yourping = await new Date().getTime() - interaction.createdTimestamp
 		let botping = await Math.round(interaction.client.ws.ping)
