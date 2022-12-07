@@ -41,7 +41,7 @@ export default async function AutoDeploy (client:any) {
     const rest = new REST({ version: '9' }).setToken(BotData.token);
     rest.put(Routes.applicationGuildCommands(BotData.clientId, BotData.guildId), { body: commands })
 	    .then(() => {
-        console.log("[","\x1b[43m","Commands AutoDeploy","\x1b[0m","]","\x1b[0m"," New commands were detected! Applaying them now!")
+        console.log("[","\x1b[43m","Commands AutoDeploy","\x1b[0m","]","\x1b[0m"," New commands were detected! Applying them now!")
 		})
 	    .catch(console.error);    
 }
