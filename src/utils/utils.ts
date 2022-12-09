@@ -106,3 +106,10 @@ export async function getStravaData(format: string, date: string, alergeny: bool
             return [{ name: "Nastala chyba", value: "Nejspíš bylo zadáno špatné datum, zkus to znovu." }];
     }
 }
+
+export function isToday(someDate: Date) {
+    const today = new Date()
+    return someDate.getDate() == today.getDate() &&
+      someDate.getMonth() == today.getMonth() &&
+      someDate.getFullYear() == today.getFullYear()
+  }
