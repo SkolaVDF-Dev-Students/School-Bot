@@ -1,6 +1,6 @@
 import { EmbedBuilder, ActionRowBuilder, ButtonStyle, ButtonBuilder, Embed} from "discord.js";
 module.exports = {
-    name: "interactionCreate",
+    name: "interactionCreate", // switch to ready event | now for every interaction new collector will create BAD!
     async execute(interaction:any) {
         //Handler for button in verify channel
         //if(interaction.isButton()) return;
