@@ -7,7 +7,7 @@ module.exports = {
         let guild = await client.guilds.fetch(BotData.guildId);
         await guild.members.fetch();
         console.log("\x1b[34m", "╔═════════════╗", "\x1b[0m");
-        console.log("\x1b[34m", "║", "\x1b[36m", "TDB Core", "\x1b[0m", "\x1b[34m", "║", "\x1b[0m");
+        console.log("\x1b[34m", "║", "\x1b[36m", "Bot Core", "\x1b[0m", "\x1b[34m", "║", "\x1b[0m");
         console.log("\x1b[34m", "╚═════════════╝", "\x1b[0m");
         console.log("• Action:", "\x1b[33m", "Started", "\x1b[0m", "-", "\x1b[32m", "Online", "\x1b[0m");
         console.log(`• Logged as: ${client.user.tag}`);
