@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { token } from "../configs/bot/bot.json";
-import AutoDeploy from "../handlers/autodeploy";
+import Deploy from "../handlers/deploy";
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('cmddeploy')
@@ -15,7 +15,7 @@ module.exports = {
             console.log("DEBUG: Client shutdown")
         })
         .then(() => {
-            AutoDeploy(interaction.client)
+            Deploy(interaction.client)
         })
         .then(() => interaction.client.login(token))
         .then(() => {
