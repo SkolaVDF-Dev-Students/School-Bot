@@ -3,7 +3,7 @@ import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('ping2')
+		.setName('ping5')
 		.setDescription('Responds with latency of the bot and pong '),
 	async execute(interaction:any) {
 		let yourping = await new Date().getTime() - interaction.createdTimestamp
