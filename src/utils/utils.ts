@@ -1,5 +1,7 @@
 import axios from "axios";
 import { toJson as xml2json } from "xml2json";
+import clc from "cli-color";
+import { text } from "stream/consumers";
 
 export function getDate(today: boolean, date: string) {
     let theDate = new Date();
@@ -104,5 +106,63 @@ export async function getStravaData(format: string, date: string, alergeny: bool
             return extractDataFromStrava(parsed, true, date, alergeny);
         default:
             return [{ name: "Nastala chyba", value: "Nejspíš bylo zadáno špatné datum, zkus to znovu." }];
+    }
+}
+
+/**
+ * Function that prints beautified messages into console 
+ * @param type Predefined set of types, each type looks different
+ * @param message Main message
+ * @param anotherMessage Secondary message
+ */
+export function println(type: "coreLoad" | "eventLoad" | "commandLoad" | "autoDeployInfo" | "commandDeploy" | "debug" | "error", message: string) {
+    switch (type) {
+        case "coreLoad":
+            let ornaments = clc.blue;
+            let ornamentsText = clc.cyan;
+
+            let textLength = message.length;
+            let postTextTop = " ╔";
+            let postTextBot = " ╚";
+            for (let i = 0; i < textLength + 2; i++) {
+                postTextTop += "═";
+                postTextBot += "═";
+
+                if (i == textLength + 1) {
+                    postTextTop += "╗";
+                    postTextBot += "╝";
+                }
+            }
+
+            console.clear()
+            console.log(ornaments(postTextTop));
+            console.log(ornaments(" ║ ") + ornamentsText(message) + ornaments(" ║"));
+            console.log(ornaments(postTextBot));
+            break;
+        case "autoDeployInfo":
+            var insideText = clc.bgYellow;
+            console.log(`[ ${insideText(` Commands AutoDeploy `)} ] ${message}`);
+            break;
+        case "commandLoad":
+            var insideText = clc.bgYellow;
+            console.log(`[ ${insideText(` C `)} ] ${clc.underline(` ${message} `)} Loaded!`);
+            break;
+        case "eventLoad":
+            var insideText = clc.bgGreen;
+            console.log(`[ ${insideText(` E `)} ] ${clc.underline(` ${message} `)} Loaded!`);
+            break;
+        case "commandDeploy":
+            var insideText = clc.bgBlue;
+            console.log(`[ ${insideText(` D `)} ] ${clc.underline(` ${message} `)} Deployed!`);
+            break;
+        case "debug":
+            var insideText = clc.bgMagenta;
+            console.log(`[ ${insideText(` DEBUG `)} ] ${message}`);
+            break;
+        case "error":
+            var insideText = clc.bgRedBright;
+            var errorText = clc.redBright;
+            console.log(`[ ${insideText(` ERROR `)} ] ${errorText(message)}`);
+            break;
     }
 }

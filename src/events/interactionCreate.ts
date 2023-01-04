@@ -1,6 +1,8 @@
+import { println } from "../utils/utils";
+
 module.exports = {
     name: "interactionCreate",
     execute(interaction:any) {
-        console.log(`DEBUG Interaction =  user: ${interaction.user.tag} channel: #${interaction.channel.name}`);
+        println("debug", `Interaction: ${interaction.user.tag} -> #${interaction.channel.name}`)
     },
 };

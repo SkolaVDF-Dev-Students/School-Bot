@@ -1,11 +1,12 @@
 import { Collection, EmbedBuilder } from "discord.js";
 import path from "node:path";
 import fs, { Dir, read, readdir } from "node:fs";
-import { nest_limit } from "../configs/bot/handlersnestlimit.json"
+import { nest_limit } from "../configs/bot/handlersnestlimit.json";
+import { println } from "../utils/utils";
 let commandFiles:any = [];
 async function LoopDir(dir:string, level:number) {
     if(level > nest_limit && nest_limit) {
-        console.log("[","\x1b[41m","Error","\x1b[0m","]")
+        println("error", "Folder nest limit reached");
         throw new Error("Folder nest limit reached");
     }
     const elements = fs.readdirSync(dir);
@@ -23,10 +24,10 @@ export default async function SlashCommandsHandler(client: any) {
         
     for (const file of commandFiles) {
         const command = await import(file);
-        console.log("[","\x1b[43m","C","\x1b[0m","]","\x1b[4m", path.basename(file), "\x1b[0m" + " Loaded!");
+        println("commandLoad", path.basename(file))
         if(!command.data) {
-            console.log("[","\x1b[41m","Error","\x1b[0m","]");
-            throw new Error("Missing command data at:  "+file);
+            println("error", "Missing command data at: " + file)
+            throw new Error("Missing command data at: " + file);
         }
         client.commands.set(command.data.name, command);
     }

@@ -1,10 +1,11 @@
 import path from "node:path";
 import fs, { Dir, read, readdir } from "node:fs";
 import { nest_limit } from "../configs/bot/handlersnestlimit.json"
+import { println } from "../utils/utils";
 let eventsFiles:any = [];
 async function LoopDir(dir:string, level:number) {
     if(level > nest_limit && nest_limit) {
-        console.log("[","\x1b[41m","Error","\x1b[0m","]")
+        println("error", "Folder nest limit reached");
         throw new Error("Folder nest limit reached");
     }
     const elements = fs.readdirSync(dir);
@@ -20,7 +21,7 @@ export default async function EventsHandler(client:any) {
 
     for (const file of eventsFiles) {
         const event = await import(file);
-        console.log("[","\x1b[42m","E","\x1b[0m","]","\x1b[4m", path.basename(file), "\x1b[0m" + " Loaded!")
+        println("eventLoad", path.basename(file));
         if (event.once) {
             client.once(event.name, (...args: any) => event.execute(...args));
         } else {

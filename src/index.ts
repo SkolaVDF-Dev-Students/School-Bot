@@ -7,6 +7,7 @@ import AutoDeploy from "./handlers/autodeploy"
 import path from "node:path"
 import EventsHandler from "./handlers/events";
 import SlashCommandsHandler from "./handlers/slashcommands";
+import { println } from "./utils/utils";
 //intents - client
 const INTENTS = [
     GatewayIntentBits.DirectMessages,
@@ -21,9 +22,9 @@ const INTENTS = [
     GatewayIntentBits.MessageContent,
 ];
 const client = new Client({ intents: INTENTS });
-//Loding
-console.log("\x1b[34m", "╔════════════════════════╗", "\x1b[0m", "\n\x1b[36m", "  Bot Core -", "\x1b[0m", "Loading...", "\n\x1b[34m", "╚════════════════════════╝", "\x1b[0m");
-console.log("[", "\x1b[43m", "Commands AutoDeploy", "\x1b[0m", "]", "\x1b[0m","Checking for new commands...")
+//Loading
+println("coreLoad", "Bot Core - Loading...");
+println("autoDeployInfo", "Checking for new commands...");
 //Auto deploy cmds
 fs.readFile("./chachesystem/temp.json", (err:any, data:any) => {
     if (!err || data) {
@@ -39,7 +40,7 @@ fs.readdir(path.join(__dirname, "./commands"), (err:any, data:any) =>{
     if (TEMP.TEMP.editDeploy !== data.length) {
         AutoDeploy(client)
     } else {
-        console.log("[", "\x1b[43m", "Commands", "\x1b[0m", "]", "\x1b[0m", " No new commands were detected... Skipping");
+        println("autoDeployInfo", "No new commands were detected... Skipping");
     }
 })
 // main handlers
