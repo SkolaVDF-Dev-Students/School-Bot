@@ -5,13 +5,14 @@ import { REST } from "@discordjs/rest";
 import BotData from "../configs/bot/bot.json"
 import { Routes } from "discord-api-types/v9";
 import { nest_limit } from "../configs/bot/handlersnestlimit.json"
+import { println } from "../utils/utils";
 
 let commandFiles:any = [];
 let CacheStorePath:string = path.join(__dirname,"../store/cachesystem/temp.json")
 
 async function LoopDir(dir:string, level:number) {
     if(level > nest_limit && nest_limit) {
-        console.log("[","\x1b[41m","Error","\x1b[0m","]")
+        println("error", "Folder nest limit reached");
         throw new Error("Folder nest limit reached");
     }
     const elements = fs.readdirSync(dir);
@@ -30,8 +31,8 @@ export default async function Deploy (client:any) {
     for (const file of commandFiles) {
         const command = await import(file);
         if(!command.data) {
-            console.log("[","\x1b[41m","Error","\x1b[0m","]");
-            throw new Error("Missing command data at:  "+file);
+            println("error", "Missing command data at:  " + file);
+            throw new Error("Missing command data at:  " + file);
         }
         client.commands.set(command.data.name, command);
     }
@@ -45,18 +46,18 @@ export default async function Deploy (client:any) {
         const DataStored = JSON.parse(ReadStored)
 
         if(JSON.stringify(commands) == JSON.stringify(DataStored)) {
-            console.log("[", "\x1b[46m", "Deploy", "\x1b[0m", "]", "\x1b[0m", " No new changes were detected... Skipping");
+            println("commandDeploy", "No new changes were detected... Skipping");
             return
         }
     } catch(err) {
-        console.log("UTILS.ERROR(DEPLOY - FAILED - JSON DATA BROKEN FIXING.)")
+        println("error", "Deploy failed - JSON data broken.");
     }
-    console.log("[", "\x1b[46m", "Deploy", "\x1b[0m", "]", "\x1b[0m", " Changes were detected..");
+    println("commandDeploy", "Changes were detected..");    
     fs.writeFileSync(CacheStorePath,JSON.stringify(commands),"utf-8")
     const rest = new REST({ version: '9' }).setToken(BotData.token);
     rest.put(Routes.applicationGuildCommands(BotData.clientId, BotData.guildId), { body: commands })
 	    .then(() => {
-        console.log("[","\x1b[46m","Deploy","\x1b[0m","]","\x1b[0m"," Detected changes were applied!")
+        println("commandDeploy", "Detected changes were applied!");    
         return 1;
 		})
 	    .catch(console.error);  

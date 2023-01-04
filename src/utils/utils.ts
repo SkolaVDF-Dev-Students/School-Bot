@@ -113,9 +113,8 @@ export async function getStravaData(format: string, date: string, alergeny: bool
  * Function that prints beautified messages into console 
  * @param type Predefined set of types, each type looks different
  * @param message Main message
- * @param anotherMessage Secondary message
  */
-export function println(type: "coreLoad" | "eventLoad" | "commandLoad" | "autoDeployInfo" | "commandDeploy" | "debug" | "error", message: string) {
+export function println(type: "coreLoad" | "eventLoad" | "commandLoad" | "autoDeployInfo" | "commandDeploy" | "debug" | "error" | "onlineInfo", message: string | Array<string>) {
     switch (type) {
         case "coreLoad":
             let ornaments = clc.blue;
@@ -134,15 +133,11 @@ export function println(type: "coreLoad" | "eventLoad" | "commandLoad" | "autoDe
                 }
             }
 
-            console.clear()
             console.log(ornaments(postTextTop));
             console.log(ornaments(" ║ ") + ornamentsText(message) + ornaments(" ║"));
             console.log(ornaments(postTextBot));
             break;
-        case "autoDeployInfo":
-            var insideText = clc.bgYellow;
-            console.log(`[ ${insideText(` Commands AutoDeploy `)} ] ${message}`);
-            break;
+
         case "commandLoad":
             var insideText = clc.bgYellow;
             console.log(`[ ${insideText(` C `)} ] ${clc.underline(` ${message} `)} Loaded!`);
@@ -153,7 +148,16 @@ export function println(type: "coreLoad" | "eventLoad" | "commandLoad" | "autoDe
             break;
         case "commandDeploy":
             var insideText = clc.bgBlue;
-            console.log(`[ ${insideText(` D `)} ] ${clc.underline(` ${message} `)} Deployed!`);
+            console.log(`[ ${insideText(` Deploy `)} ] ${clc.underline(` ${message} `)} Deployed!`);
+            break;
+        case "onlineInfo":
+            var insideText = clc.blueBright.italic;
+            for(let i = 0; i < message.length; i++) {
+                let splitMessage = message[i].split(": ");
+                splitMessage[1] = insideText(splitMessage[1]);
+                let msg = splitMessage.join(": ");
+                console.log(`• ${msg}`);
+            }         
             break;
         case "debug":
             var insideText = clc.bgMagenta;
