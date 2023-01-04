@@ -1,6 +1,7 @@
 import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { token } from "../configs/bot/bot.json";
 import Deploy from "../handlers/deploy";
+import { println } from "../utils/utils";
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('cmddeploy')
@@ -12,14 +13,14 @@ module.exports = {
 		interaction.reply({embeds: [infos]})
         .then(() => {
             interaction.client.destroy
-            console.log("DEBUG: Client shutdown")
+            println("debug", "Client shutdown.");
         })
         .then(() => {
             Deploy(interaction.client)
         })
         .then(() => interaction.client.login(token))
         .then(() => {
-            console.log("DEBUG: Client Online!")
+            println("debug", "Client online!");
         })
 	},
 };

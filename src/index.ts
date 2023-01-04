@@ -5,6 +5,7 @@ import EventsHandler from "./handlers/events";
 import SlashCommandsHandler from "./handlers/slashcommands";
 //import AutoDeploy from "./handlers/autodeploy";
 import Deploy from "./handlers/deploy";
+import { println } from "./utils/utils";
 //intents - client
 const INTENTS = [
     GatewayIntentBits.DirectMessages,
@@ -19,8 +20,8 @@ const INTENTS = [
     GatewayIntentBits.MessageContent,
 ];
 const client = new Client({ intents: INTENTS });
-//Loding
-console.log("\x1b[34m", "╔════════════════════════╗", "\x1b[0m", "\n\x1b[36m", "  Bot Core -", "\x1b[0m", "Loading...", "\n\x1b[34m", "╚════════════════════════╝", "\x1b[0m");
+//Loading
+println("coreLoad", "Bot Core - Loading...")
 
 // main handlers
 EventsHandler(client);

@@ -6,6 +6,7 @@
     "dependencies": {
         "@types/xml2json": "^0.11.4",
         "axios": "^0.27.2",
+        "cli-color": "^2.0.3",
         "deepai": "^1.0.21",
         "deepl-node": "^1.5.0",
         "discord-api-types": "^0.33.5",
@@ -32,6 +33,7 @@
     },
     "homepage": "https://github.com/ItzDepstRT/BotBase#readme",
     "devDependencies": {
+        "@types/cli-color": "^2.0.2",
         "@types/node": "^18.7.14",
         "@types/node-cron": "^3.0.3",
         "ts-node": "^10.9.1",
